@@ -1,0 +1,20 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="Qt JSON 可视化编辑工具开发总结 - 黄海桥的技术博客"/><title>Qt JSON 可视化编辑工具开发总结 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>Qt JSON 可视化编辑工具开发总结</h1>
+<div class="article-meta"><span>2026.06</span><span>开发</span></div>
+<div class="article-body">
+<h2>需求来源</h2>
+<p>标定工程师需要频繁编辑 JSON 格式的远程标定文件，传统的手工编辑效率低、易出错。需要一套可视化的编辑工具来提升工作效率和准确性。</p>
+<h2>核心功能</h2>
+<ul><li><b>一维/二维表格化编辑：</b>将 JSON 结构解析为表格形式，支持单元格直接编辑</li><li><b>搜索高亮：</b>快速定位关键字段，匹配内容高亮显示</li><li><b>远程配置管理：</b>支持通过 IP 配置连接到远程设备，直接读取和写入标定文件</li><li><b>格式校验：</b>编辑过程中实时校验 JSON 格式正确性</li></ul>
+<h2>技术实现</h2>
+<p>基于 Qt 的 Model/View 架构，自定义 QAbstractTableModel 实现 JSON 数据到表格的映射。使用 QStyledItemDelegate 实现自定义单元格编辑器。网络通信层使用 QTcpSocket 封装，支持异步读写。</p>
+</div>
+<div class="article-tags"><span>Qt</span><span>JSON</span><span>C++</span></div></main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+

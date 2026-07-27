@@ -1,0 +1,27 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="OpenCV 在 SafeOS 平台的交叉编译与适配 - 黄海桥的技术博客"/><title>OpenCV 在 SafeOS 平台的交叉编译与适配 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body pre{background:#f0f1ee;border-radius:4px;padding:16px 20px;overflow-x:auto;font:13px/1.6 var(--mono)}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>OpenCV 在 SafeOS 平台的交叉编译与适配</h1>
+<div class="article-meta"><span>2026.06</span><span>嵌入式</span></div>
+<div class="article-body">
+<h2>挑战</h2>
+<p>SafeOS 是一个功能安全操作系统，其开发环境与标准的 Linux 桌面环境差异较大。OpenCV 在该平台上的编译存在诸多依赖问题：缺少标准工具链、部分模块不兼容、交叉编译工具链配置复杂。</p>
+<h2>解决思路</h2>
+<p>作为项目初期的技术负责人，我首先梳理了 OpenCV 的模块依赖树，确定 AI Cabin 所需的最小模块集。然后针对 SafeOS 平台编写了专门的交叉编译脚本，手动解决了每个依赖库的编译问题，最终搭建了完整的编译体系。</p>
+<h2>SOA 服务设计</h2>
+<p>从零开始打通了 SOA 服务订阅与数据收发链路。设计了 Server/Client 通信机制，采用智能指针管理资源生命周期，使用读写锁保障并发安全，为后续模块开发提供了基础能力。</p>
+<pre><code>class SoaServer {
+    std::shared_ptr&lt;DataBuffer&gt; buffer_;
+    std::shared_mutex rw_lock_;
+public:
+    void publish(const SignalData &amp;data);
+    void subscribe(const std::string &amp;topic, Callback cb);
+};</code></pre>
+</div>
+<div class="article-tags"><span>OpenCV</span><span>SafeOS</span><span>SOA</span><span>C++</span></div></main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+

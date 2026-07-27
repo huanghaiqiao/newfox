@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>个人资料</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { height: 100%; overflow: hidden; background: #0a0f14; }
+      #particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+      .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 10; background: rgba(10,15,20,0.6); backdrop-filter: blur(8px); height: 65px; display: flex; align-items: center; justify-content: center; }
+      .site-header nav { display: flex; gap: 32px; }
+      .site-header nav a { color: rgba(255,255,255,0.7); font: 500 13px var(--sans); letter-spacing: .04em; text-transform: uppercase; transition: color .3s; }
+      .site-header nav a:hover { color: #5fc9b8; }
+      .site-header nav a[aria-current] { color: #5fc9b8; }
+      .center-content { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 5; text-align: center; pointer-events: none; }
+      .center-content h1 { font: 600 clamp(42px,7vw,80px) var(--sans); color: #fff; letter-spacing: -.04em; margin-bottom: 10px; text-shadow: 0 0 60px rgba(95,201,184,0.2); }
+      .center-content .subtitle { font: 400 clamp(14px,2vw,20px) var(--sans); color: rgba(255,255,255,0.5); letter-spacing: .06em; }
+      .center-content .tagline { margin-top: 28px; display: inline-flex; gap: 18px; pointer-events: auto; }
+      .center-content .tagline a { color: rgba(255,255,255,0.4); font: 12px var(--mono); letter-spacing: .05em; text-decoration: none; transition: color .3s; position: relative; }
+      .center-content .tagline a:hover { color: #5fc9b8; }
+      .center-content .tagline a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: #5fc9b8; transition: width .3s; }
+      .center-content .tagline a:hover::after { width: 100%; }
+      .site-footer { position: fixed; bottom: 0; left: 0; right: 0; z-index: 10; padding: 20px 32px; display: flex; justify-content: space-between; color: rgba(255,255,255,0.25); font: 11px var(--mono); background: linear-gradient(transparent, rgba(10,15,20,0.8)); pointer-events: none; }
+      .site-footer a { color: rgba(255,255,255,0.25); text-decoration: none; pointer-events: auto; transition: color .3s; }
+      .site-footer a:hover { color: #5fc9b8; }
+      .cursor-glow { width: 300px; height: 300px; border-radius: 50%; position: fixed; pointer-events: none; z-index: 1; background: radial-gradient(circle, rgba(95,201,184,0.06) 0%, transparent 70%); transform: translate(-50%,-50%); transition: left .15s ease, top .15s ease; }
+      @media (max-width: 720px) { .site-header nav { gap: 20px; } .center-content .tagline { gap: 12px; flex-wrap: wrap; justify-content: center; } }
+    </style>
+  </head>
+  <body>
+    <div class="cursor-glow" id="cursorGlow"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <header class="site-header">
+      <nav aria-label="主导航">
+        <a href="tools.html">工具</a>
+        <a href="blog.html">博客</a>
+        <a href="resume.html">简历</a>
+      </nav>
+    </header>
+
+    <main class="center-content">
+      
+      <p class="subtitle">C / C++ 应用开发 · 嵌入式 · AI 算法</p>
+      <div class="tagline">
+        <a href="tools.html">工具箱 →</a>
+        <a href="blog.html">博客 →</a>
+        <a href="resume.html">简历 →</a>
+        <a href="https://blog.csdn.net/m0_56306892/article/details/163237789?spm=1001.2014.3001.5502" target="_blank" rel="noreferrer">CSDN →</a>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <span>© 2026</span>
+      <span>Built with care.</span>
+    </footer>
+
+    <script>
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+      const COUNT = 120;
+      const CONN_DIST = 150;
+      const MOUSE_RADIUS = 120;
+
+      let mouse = { x: -9999, y: -9999 };
+      document.addEventListener('mousemove', e => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        const glow = document.getElementById('cursorGlow');
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+      });
+      document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+      function resize() {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * W;
+          this.y = Math.random() * H;
+          this.vx = (Math.random() - 0.5) * 0.6;
+          this.vy = (Math.random() - 0.5) * 0.6;
+          this.radius = Math.random() * 2 + 1;
+          this.baseAlpha = Math.random() * 0.5 + 0.3;
+        }
+        update() {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if (dist < MOUSE_RADIUS) {
+            const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS * 0.5;
+            this.vx -= dx / dist * force;
+            this.vy -= dy / dist * force;
+          }
+          this.x += this.vx;
+          this.y += this.vy;
+          this.vx *= 0.995;
+          this.vy *= 0.995;
+          if (this.x < 0 || this.x > W) this.vx *= -1;
+          if (this.y < 0 || this.y > H) this.vy *= -1;
+        }
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = 
+gba(95, 201, 184, );
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < COUNT; i++) particles.push(new Particle());
+
+      function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < CONN_DIST) {
+              const alpha = (1 - dist / CONN_DIST) * 0.35;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = 
+gba(95, 201, 184, );
+              ctx.lineWidth = 0.6;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, W, H);
+        for (const p of particles) p.update();
+        drawConnections();
+        for (const p of particles) p.draw();
+        requestAnimationFrame(animate);
+      }
+      animate();
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

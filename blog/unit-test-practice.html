@@ -1,0 +1,30 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="C++ 单元测试实践：GoogleTest 与数据驱动测试 - 黄海桥的技术博客"/><title>C++ 单元测试实践：GoogleTest 与数据驱动测试 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px);margin-top:18px;margin-bottom:30px}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body pre{background:#f0f1ee;border-radius:4px;padding:16px 20px;overflow-x:auto;font:13px/1.6 var(--mono);margin:0 0 18px}.article-body code{font:13px var(--mono);background:#f0f1ee;padding:1px 5px;border-radius:3px}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}
+</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>C++ 单元测试实践：GoogleTest 与数据驱动测试</h1>
+<div class="article-meta"><span>2026.07</span><span>开发</span></div>
+<div class="article-body">
+<h2>背景</h2>
+<p>在车载软件开发过程中，C++ 单元测试的维护成本往往随着用例数量增长而快速上升。传统的做法是为每个测试用例编写独立的 TEST_F 函数，但这种方式导致测试代码膨胀、数据与逻辑耦合、新增用例需要重新编译。为了解决这些问题，我们设计了一套基于 GoogleTest 的数据驱动测试框架。</p>
+<h2>设计方案</h2>
+<p>核心思路是将测试数据从代码中剥离，存储在 CSV 文件中。框架在 SetUpTestCase 阶段自动加载 CSV，逐行生成测试参数，通过一个统一的 TEST_P 用例模板执行测试。</p>
+<pre><code>class DataDrivenTest : public TestWithParam&lt;TestRow&gt; { };
+TEST_P(DataDrivenTest, Run) {
+    auto &amp;row = GetParam();
+    auto result = runTestCase(row.input);
+    EXPECT_NEAR(result, row.expected, row.tolerance);
+}
+INSTANTIATE_TEST_SUITE_P(FromCSV, DataDrivenTest,
+    ValuesIn(CSVLoader::load("test_data.csv")));</code></pre>
+<h2>成果</h2>
+<ul><li>测试数据与代码完全解耦，新增用例只需编辑 CSV 文件，无需重新编译</li><li>集成 Jenkins 流水线，每次提交自动执行并生成 JSON/HTML 报告</li><li>测试用例集中管理，团队协作效率显著提升</li></ul>
+</div>
+<div class="article-tags"><span>C++</span><span>GoogleTest</span><span>Jenkins</span></div>
+</main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+

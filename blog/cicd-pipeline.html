@@ -1,0 +1,19 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="CI/CD 交付体系：从编译到一键部署 - 黄海桥的技术博客"/><title>CI/CD 交付体系：从编译到一键部署 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>CI/CD 交付体系：从编译到一键部署</h1>
+<div class="article-meta"><span>2026.03</span><span>工程</span></div>
+<div class="article-body">
+<h2>问题</h2>
+<p>算法从开发到交付的过程中，涉及编译、代码审查、质量检测、打包等多个环节。手工操作不仅效率低下，还容易遗漏步骤导致交付质量不稳定。</p>
+<h2>体系建设</h2>
+<ul><li><b>代码检查：</b>集成 Cppcheck（C++）和 PyLint（Python），在提交阶段自动执行静态分析</li><li><b>自动化编译：</b>使用 Jenkins Pipeline 实现多平台并行编译</li><li><b>质量门禁：</b>编译警告、测试通过率、代码覆盖率等指标作为门禁条件</li><li><b>一键打包：</b>使用 makeself 将编译产物打包为可自解压安装包</li></ul>
+<p>该体系累计支撑了 24 个版本的持续发布，每次发布均可在 30 分钟内完成从代码提交到交付物生成的完整流程。代码与运行环境实现了一键交付。</p>
+</div>
+<div class="article-tags"><span>CI/CD</span><span>Jenkins</span><span>自动化</span><span>Docker</span></div></main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+

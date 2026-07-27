@@ -1,0 +1,21 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="嵌入式芯片自动化测试平台搭建实践 - 黄海桥的技术博客"/><title>嵌入式芯片自动化测试平台搭建实践 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>嵌入式芯片自动化测试平台搭建实践</h1>
+<div class="article-meta"><span>2026.04</span><span>测试</span></div>
+<div class="article-body">
+<h2>需求背景</h2>
+<p>芯片量产过程中需要对每颗芯片进行功能、性能、功耗和稳定性测试。人工测试效率低下，且容易遗漏测试项。需要一套自动化的测试平台来支撑从研发到量产的测试需求。</p>
+<h2>平台架构</h2>
+<p>基于 Python + C 搭建了嵌入式芯片自动化测试平台。Python 层负责测试流程编排、数据采集和报告生成；C 层负责底层寄存器操作和时间敏感的步进测试。</p>
+<h2>核心能力</h2>
+<ul><li><b>电压/电流/频率验证：</b>自动控制寄存器输出预设参数，通过 ADC 采集实际值进行比对</li><li><b>量产自测脚本：</b>支持一键执行全量测试，批量保障芯片性能一致性</li><li><b>坏片定位：</b>通过 Python 控制寄存器并解析串口输出，快速定位异常芯片</li></ul>
+<p>通过该平台，重复人工测试减少了 30% 以上，芯片验证效率和稳定性得到显著提升。</p>
+</div>
+<div class="article-tags"><span>Python</span><span>嵌入式</span><span>自动化测试</span><span>FPGA</span></div></main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+

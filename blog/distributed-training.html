@@ -1,0 +1,21 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="分布式训练平台落地：Ray + MLflow 实践总结 - 黄海桥的技术博客"/><title>分布式训练平台落地：Ray + MLflow 实践总结 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>分布式训练平台落地：Ray + MLflow 实践总结</h1>
+<div class="article-meta"><span>2026.04</span><span>AI</span></div>
+<div class="article-body">
+<h2>背景</h2>
+<p>推荐系统模型（如 DeepRec 和 DLRM）的训练需要大量计算资源，单机训练效率低下。需要构建一套分布式训练平台，支持多节点并行训练、实验跟踪和环境管理。</p>
+<h2>技术选型</h2>
+<ul><li><b>Ray：</b>作为分布式计算框架，负责任务调度和资源管理</li><li><b>MLflow：</b>负责训练参数跟踪、结果可视化和模型注册</li><li><b>Docker + Kubernetes：</b>实现环境容器化和弹性伸缩</li></ul>
+<h2>平台建设</h2>
+<p>搭建了完整的分布式训练和可视化平台。训练参数通过配置文件管理，支持一键启动多节点训练任务。训练过程中的损失、精度等指标实时同步到 MLflow 仪表盘。</p>
+<ul><li>训练效率提升数倍，支持多节点并行训练</li><li>训练过程和结果可完整追踪，便于复现和调优</li><li>环境依赖通过 Docker 隔离，部署快速且一致</li></ul>
+</div>
+<div class="article-tags"><span>Ray</span><span>MLflow</span><span>Kubernetes</span><span>Docker</span></div></main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+

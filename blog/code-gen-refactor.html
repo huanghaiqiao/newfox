@@ -1,0 +1,25 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="座舱 C 代码生成工具重构 - 黄海桥的技术博客"/><title>座舱 C 代码生成工具重构 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body pre{background:#f0f1ee;border-radius:4px;padding:16px 20px;overflow-x:auto;font:13px/1.6 var(--mono)}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>座舱 C 代码生成工具重构</h1>
+<div class="article-meta"><span>2026.05</span><span>重构</span></div>
+<div class="article-body">
+<h2>痛苦的起点</h2>
+<p>座舱项目中有一份约 2 万行的 C 代码生成工具，最初由 AI 生成，结构混乱、耦合严重、可维护性极差。每次需求变更都需要工程师逐行修改生成逻辑，极其容易引入新问题。</p>
+<h2>重构策略</h2>
+<p>我们没有选择重写，而是采用渐进式重构。第一步是梳理现有逻辑，绘制模块依赖图；第二步是按功能拆分为独立模块；第三步是设计配置驱动的代码生成机制。</p>
+<h2>配置驱动设计</h2>
+<p>重新设计了基于 Excel 的配置驱动生成方案。将时序信息、步骤定义、类型映射等信息全部放在 Excel 配置表中，代码生成器负责解析配置并输出规范的 C 代码。</p>
+<pre><code>// Excel 配置示例
+// 时序 | 步骤ID | 输入类型 | 输出类型 | 超时(ms)
+// T1   | STEP_A | uint32   | float    | 100
+// T1   | STEP_B | float    | bool     | 50</code></pre>
+<ul><li>系统扩展性大幅提升，新增功能只需修改 Excel 配置</li><li>人工修改带来的错误率有效降低</li><li>代码结构清晰，团队生产力明显改善</li></ul>
+</div>
+<div class="article-tags"><span>重构</span><span>代码生成</span><span>Excel</span><span>C++</span></div></main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+

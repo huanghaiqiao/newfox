@@ -1,0 +1,15 @@
+﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="OCR 图像识别在线演示 - 黄海桥的工具箱"/><title>OCR 图像识别在线演示 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.tool-page{max-width:820px;margin:0 auto;padding:92px 32px 90px}.tool-page h1{font-size:clamp(28px,3.8vw,40px)}.tool-desc{color:var(--muted);font-size:14px;margin-bottom:36px}.tool-card{background:#f5f6f3;border-radius:6px;padding:28px 30px;margin-bottom:24px;border:1px solid var(--line)}.tool-card h2{font-size:16px;margin:0 0 16px}.tool-card p{margin:0 0 14px;color:#3d484e;font-size:13px}.tool-card button{border:0;cursor:pointer;background:var(--ink);color:#fff;padding:9px 18px;border-radius:3px;font:500 13px var(--sans)}.tool-card button:hover{background:var(--accent)}.tool-card .output-area{background:#eef0ec;border:1px solid var(--line);border-radius:4px;padding:20px;min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font:13px var(--sans);color:var(--muted);margin-top:10px}.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.tool-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:30px}.tool-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.tool-page{padding:65px 20px 60px}.tool-card{padding:20px}}</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html" aria-current="page">工具</a><a href="../blog.html">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="tool-page">
+<p class="eyebrow"><a href="../tools.html" style="text-decoration:underline">← 返回工具列表</a></p>
+<h1>OCR 图像识别在线演示</h1>
+<p class="tool-desc">图像投影、分割与文字识别在线体验，支持多种图像格式上传。</p>
+<div class="tool-card"><h2>图像上传</h2><div class="output-area"><span>[ 图像预览区域 ]<br/>拖入图片或点击上传</span></div><button onclick="alert('演示版：上传图像并执行 OCR 识别')" style="margin-top:12px">上传并识别</button></div>
+<div class="tool-card"><h2>识别结果</h2><div class="output-area" style="display:block;text-align:left;background:#fff;font-family:var(--mono);font-size:13px;color:#3d484e"><b>识别文本：</b><br/>Hello World<br/>OCR Demo 2026<br/>置信度: 96.3%</div></div>
+<div class="tool-card"><h2>处理流程</h2><p>当前流水线：图像预处理 → 投影矫正 → 文字区域分割 → 字符识别 → 后处理</p><div style="display:flex;gap:10px;flex-wrap:wrap"><span style="background:#e9ebe7;padding:4px 10px;border-radius:99px;font:11px var(--mono)">&#10003; 灰度化</span><span style="background:#e9ebe7;padding:4px 10px;border-radius:99px;font:11px var(--mono)">&#10003; 二值化</span><span style="background:#e9ebe7;padding:4px 10px;border-radius:99px;font:11px var(--mono)">&#10003; 投影分割</span><span style="background:#e9ebe7;padding:4px 10px;border-radius:99px;font:11px var(--mono)">&#10003; 文字识别</span></div></div>
+<div class="tool-tags"><span>OCR</span><span>图像识别</span><span>文字提取</span></div></main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../tools.html">返回工具列表</a></footer></body></html>
+
+

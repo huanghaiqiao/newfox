@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="黄海桥的个人简历。" />
+    <title>黄海桥 · 个人简历</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .resume-role span { font-size: 12px; }
+      .resume-page { padding: 48px 58px 46px; }
+      .resume-header { padding-bottom: 20px; }
+      .resume-header h1 { font-size: 43px; }
+      .resume-highlight { display: flex; align-items: baseline; gap: 18px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+      .resume-highlight b { flex: 0 0 82px; font: 500 12px var(--mono); letter-spacing: .05em; }
+      .resume-highlight p { margin: 0; color: #4c575d; font-size: 12px; line-height: 1.6; }
+      .resume-section { grid-template-columns: 82px 1fr; gap: 18px; padding: 18px 0; }
+      .resume-entries { gap: 13px; }
+      .resume-entries ul { line-height: 1.65; }
+      .skills-horizontal { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; color: #3d484e; font-size: 13px; line-height: 1.8; }
+      .skills-horizontal span { white-space: nowrap; }
+      .skills-horizontal b { color: var(--ink); }
+      @media (max-width: 720px) { .resume-page { padding: 32px 24px; } .resume-highlight { display: block; padding: 13px 0; } .resume-highlight b { display: block; margin-bottom: 7px; } .resume-section { padding: 17px 0; } .skills-horizontal { gap: 6px 18px; } .skills-horizontal span { white-space: normal; } }
+      @media print { .resume-page { padding: 0; } .resume-header { padding-bottom: 5mm; } .resume-highlight { padding: 3mm 0; gap: 5mm; break-inside: avoid; } .resume-highlight b { flex-basis: 24mm; } .resume-highlight p { font-size: 9pt; line-height: 1.55; } .resume-section { grid-template-columns: 24mm 1fr; gap: 5mm; padding: 4mm 0; } .skills-horizontal { font-size: 9pt; } }
+    </style>
+  </head>
+  <body class="resume-body">
+    <a class="skip-link" href="#resume-content">跳到简历内容</a>
+    <header class="resume-toolbar no-print">
+      <a href="index.html">← 返回资料主页</a>
+      <button class="button button-primary" type="button" data-print>下载 / 导出 PDF <span aria-hidden="true">→</span></button>
+    </header>
+    <main id="resume-content" class="resume-page">
+      <header class="resume-header">
+        <div><p class="eyebrow">个人简历 / Resume</p><h1>黄海桥</h1><p class="resume-role">C / C++ 应用软件开发 · 求职意向：C/C++<span> · 上海</span></p></div>
+        <address><a href="tel:15990171297">159****1297</a><a href="mailto:641136541@qq.com">641136541@qq.com</a><span>长江大学</span></address>
+      </header>
+      <section class="resume-highlight"><b>技术技能</b><p>C++、C、Python、Qt、OpenCV、Lua、Android NDK、CUDA、OneAPI、QNN、Docker、Kubernetes、Jenkins、Protobuf、FlatBuffers、DDS、Socket、Paramiko。具备嵌入式芯片测试、AI 算法开发与迁移、自动化工具开发、数据可视化及分布式训练平台搭建能力。熟悉 GoogleTest、Cppcheck、PyLint 等测试框架，能独立搭建测试与训练环境、优化算法性能、实现自动化交付。</p></section>
+      <section class="resume-section"><h2>工作经历</h2><div class="resume-entries">
+        <article><div class="entry-title"><h3>中科创达软件股份有限公司 <span>应用软件开发</span></h3><time>2023.06 – 至今</time></div><ul>
+          <li>基于 GoogleTest 测试夹具开发 C++ 单元测试工具，采用 CSV 存储测试数据，实现数据与代码解耦、用例自动加载、JSON/HTML 报告生成，并通过 Jenkins 实现自动化执行，提升测试效率并实现用例集中管理</li>
+          <li>开发面向标定同事的 Qt JSON 可视化编辑工具，支持一维和二维表格化编辑、搜索高亮及远程 IP 配置管理，有效提升标定文件编辑效率与准确性</li>
+          <li>主导搭建基于 DDS 的汽车信号录制与回放自动化测试框架，将原多线程结构体存储升级为高性能自定义 Protobuf 落盘机制；提供算法调用接口，支持外部算法接入与结果校验，有效提前发现并拦截大量潜在缺陷；提供 Qt 可视化界面，支持选择回放数据、回放次数及实时进度显示，并结合台架回放及 HTML 报告生成，构建高性能、模块化、可扩展的端到端信号测试体系</li>
+          <li>负责智能空调信息录入 Demo，接手原有 Socket Server 并发现通信设计缺陷和粘包问题，完成底层协议优化和异常处理，提升数据接收稳定性；基于 OpenCV 实现实时数据可视化与监控界面，为系统调试和问题定位提供高效工具</li>
+          <li>主导 AI Cabin 模块 OpenCV 算法迁移及 SOA 服务开发，作为项目初期技术负责人，率先完成 OpenCV 在 SafeOS 平台的交叉编译与适配，解决环境与依赖问题并搭建完整编译体系；从 0 到 1 打通 SOA 服务订阅与数据收发链路，设计并实现 Server/Client 通信机制，采用智能指针与读写锁保障并发安全，为后续模块开发提供基础能力</li>
+          <li>主导重构座舱 C 代码生成工具（约 2 万行代码），针对原有基于 AI 生成的代码存在结构混乱、耦合严重及可维护性差的问题，进行模块化重构与流程优化；重新设计基于 Excel 的配置驱动代码生成机制，实现时序、步骤及类型的自动解析与生成，提升系统扩展性与稳定性，有效降低人工修改带来的错误率</li>
+          <li>开发基于手势识别的 Android 应用，通过 NDK 调用 C++ 推理模块实现图像处理与实时检测；在高通 8295 平台上基于官方 Demo 进行二次开发，完成 QNN 推理框架适配与 YOLO 模型部署，打通 Camera 数据流至推理链路，实现端侧高性能目标检测与标注</li>
+          <li>基于 DDS 信号开发 Lua 脚本，实现信号触发规则配置及自动化数据录制</li>
+        </ul></article>
+        <article><div class="entry-title"><h3>上海物骐微电子有限公司 <span>射频驱动软件工程师</span></h3><time>2022.12 – 2023.06</time></div><ul>
+          <li>参与芯片测试需求评审和测试方案设计，制定功能、性能、功耗和稳定性测试计划</li>
+          <li>验证芯片电压、电流、频率输出，编写量产自测脚本，确保设计阶段及量产阶段参数正常</li>
+          <li>利用 Python / C 编写自动化测试脚本，实现寄存器初始化、步进测试及通过标志位设置</li>
+          <li>搭建和维护硬件测试环境（板卡、FPGA、示波器、逻辑分析仪等），完成接口验证及信号采集</li>
+          <li>芯片量产抽查坏片，控制寄存器数值，读取并解析串口输出，验证相关电路参数</li>
+          <li>跟踪芯片缺陷，定位问题，推动修复并编写测试报告与验证文档</li>
+          <li>持续优化测试流程和工具链，提升自动化覆盖率与测试效率</li>
+          <li style="list-style:none; margin-left:-17px;"><b>业绩：</b></li>
+          <li>搭建基于 Python + C 的嵌入式芯片自动化测试平台，实现功能、性能及功耗测试自动化</li>
+          <li>成功验证芯片电压、电流、频率输出，量产自测脚本保障批量芯片性能一致性</li>
+          <li>量产抽查次品率，通过 Python 控制寄存器并解析串口信息快速定位坏片，提升量产良品率</li>
+          <li>利用示波器、逻辑分析仪、JTAG 调试工具完成高速信号及接口验证，提高测试覆盖率</li>
+          <li>编写完整测试报告和验证文档，支撑芯片发布决策，提高研发与测试沟通效率</li>
+          <li>持续优化测试流程，将重复人工测试减少 30%+，提升芯片验证效率和稳定性</li>
+          <li>协助跨团队完成 FPGA 模块验证和软硬件联合调试，保障芯片功能和性能指标达标</li>
+        </ul></article>
+        <article><div class="entry-title"><h3>中科创达软件股份有限公司 <span>运维开发工程师</span></h3><time>2018.12 – 2022.11</time></div><ul>
+          <li>搭建分布式训练与服务平台，使用 Ray 和 MLflow 实现训练任务调度及可视化</li>
+          <li>构建 DeepRec 和 DLRM 训练环境，支持模型编译和跨节点分布式训练</li>
+          <li>自动化部署 DLRM 训练任务，并分析耗时，优化高耗时算法性能</li>
+          <li>实现图片 OCR 识别流程，包括图像投影、分割及文字识别</li>
+          <li>编写和维护 C++、Python、Shell、YML、Dockerfile 等脚本及部署工具</li>
+          <li>搭建 Kubernetes (K8s) AI 训练环境，实现容器化和可扩展分布式训练</li>
+          <li style="list-style:none; margin-left:-17px;"><b>业绩：</b></li>
+          <li>搭建完整分布式训练和可视化平台 (Ray + MLflow)，实现训练参数配置化、结果可视化和训练任务调度</li>
+          <li>开发 OCR 图像识别模块，完成图像投影、分割和文字识别，支撑下游业务文本数据提取</li>
+          <li>AI 模型环境镜像构建与部署：编写 Dockerfile 并使用 Docker Compose 构建多模型镜像，针对不同 AI 算法环境依赖进行隔离与配置管理，通过 Docker 部署镜像，实现统一、高可复现的运行环境</li>
+          <li>分布式训练平台搭建 (DeepRec)：基于 Docker + Kubernetes/Pod + MLflow 搭建远程训练平台，实现 DeepRec 模型容器化部署、训练参数配置化及训练结果可视化，支持多节点分布式训练与数据统一管理</li>
+        </ul></article>
+        <article><div class="entry-title"><h3>中软国际科技服务有限公司 <span>软件工程师</span></h3><time>2015.06 – 2018.11</time></div><ul>
+          <li>参与需求评审与测试策略制定，主导测试方案设计及用例体系建设，提升测试覆盖率与质量可控性</li>
+          <li>基于 Python 搭建自动化测试框架，覆盖接口测试、精度校验及性能/压力测试，显著提升测试效率与稳定性</li>
+          <li>完善缺陷管理机制，负责问题定位、根因分析、跟踪闭环及回归验证，提高缺陷修复效率与版本质量</li>
+          <li>持续优化测试流程与工具链，提高自动化覆盖率，提升测试效率</li>
+          <li>主导 CI/CD 交付体系建设，打通算法编译、质量校验与自动化打包全流程，实现代码与环境一键交付</li>
+          <li style="list-style:none; margin-left:-17px;"><b>业绩：</b></li>
+          <li>使用 Python 对 Baidutraffic-light 数据集进行自动化增强：随机截取红绿灯区域生成 256×256 新图像，自动更新 XML 标注，实现高效数据集扩增并提升标注一致性</li>
+          <li>AI 算子仓库与持续交付体系搭建：独立编译 Python whl 包，整合 C++/Python 算法，结合代码检查工具（Cppcheck/PyLint）、自动化检视、编译与 makeself 打包，实现算法仓库一键交付，累计支撑 24 个版本持续发布</li>
+          <li>MDC610 AI 算法自动化测试框架开发：在 Linux 平台搭建多框架 (PyTorch、Caffe、TensorFlow) 算法测试体系，使用 Python + Paramiko 实现模型输入/输出采集与跨平台数据传输，将模型转换为 MDC610 架构并执行算法，自动对比不同平台结果；框架支持多算法扩展、差异化结果比对，有效提升算法验证效率与跨平台一致性</li>
+          <li>MDC610 AI 算法迁移与优化：基于 Linux 平台算法计算方式，使用 MDC610 架构 API 重构 OpenCV（remap、reshape）和 AI 算法（expend、erf、split）模块，实现计算结果与原平台误差 ≤0.1%，remap/reshape 执行时间控制在 5ms 内，保障高精度与高性能迁移</li>
+        </ul></article>
+      </div></section>
+    </main>
+    <p class="print-hint no-print">提示：点击"下载 / 导出 PDF"后，在系统打印窗口中选择"另存为 PDF"。</p>
+    <script src="script.js"></script>
+  </body>
+</html>
