@@ -1,55 +1,47 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>深浅拷贝</title>
-</head>
-<body>
-  <article>
-    <h1>深浅拷贝</h1>
+<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="C++ 深拷贝与浅拷贝：从资源所有权到 Rule of 3/5 - 黄海桥的技术博客"/><title>C++ 深拷贝与浅拷贝：从资源所有权到 Rule of 3/5 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px);margin-top:18px;margin-bottom:30px}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body pre{background:#f0f1ee;border-radius:4px;padding:16px 20px;overflow-x:auto;font:13px/1.6 var(--mono);margin:0 0 18px}.article-body code{font:13px var(--mono);background:#f0f1ee;padding:1px 5px;border-radius:3px}.article-body ul,.article-body ol{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}
+</style></head>
+<body><a class="skip-link" href="#content">跳到主要内容</a>
+<header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
+<main id="content" class="article-page">
+<p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
+<h1>C++ 深拷贝与浅拷贝：从资源所有权到 Rule of 3/5</h1>
+<div class="article-meta"><span>2026.07</span><span>开发</span></div>
+<div class="article-body">
+<h2>1. 概念：什么是浅拷贝 / 深拷贝？</h2>
+<p>当一个对象里包含 <strong>指针/动态资源</strong>（例如 <code>new</code> 出来的内存、文件句柄、socket、互斥锁等）时，拷贝对象会面临“资源所有权”问题：</p>
+<ul>
+  <li><strong>浅拷贝（Shallow Copy）</strong>：只把成员变量的值逐位复制。若成员是指针，那么复制后两个对象的指针会指向 <strong>同一块堆内存</strong>。</li>
+  <li><strong>深拷贝（Deep Copy）</strong>：不仅复制成员变量值，还会为“资源型成员” <strong>重新申请一份独立资源</strong>，并复制资源内容。这样两个对象互不影响，各自释放各自的资源。</li>
+</ul>
+<p><strong>一句话：</strong>浅拷贝复制“指针值”，深拷贝复制“指针指向的内容”。</p>
 
-    <h2>1. 概念：什么是浅拷贝 / 深拷贝？</h2>
-    <p>当一个对象里包含 <strong>指针/动态资源</strong>（例如 <code>new</code> 出来的内存、文件句柄、socket、互斥锁等）时，拷贝对象会面临“资源所有权”问题：</p>
-    <ul>
-      <li><strong>浅拷贝（Shallow Copy）</strong>：只把成员变量的值逐位复制。若成员是指针，复制后两个对象的指针会指向 <strong>同一块堆内存</strong>。</li>
-      <li><strong>深拷贝（Deep Copy）</strong>：不仅复制成员变量值，还会为“资源型成员” <strong>重新申请一份独立资源</strong>，并复制资源内容。这样两个对象互不影响，各自释放各自的资源。</li>
-    </ul>
-    <p><strong>一句话：</strong>浅拷贝复制“指针值”，深拷贝复制“指针指向的内容”。</p>
+<h2>2. 为什么浅拷贝危险？</h2>
+<p>以“堆内存指针”为例，浅拷贝常见问题：</p>
+<ol>
+  <li><strong>重复释放（double free）</strong>：两个对象析构时都会 <code>delete</code> 同一块内存 → 未定义行为（可能崩溃）。</li>
+  <li><strong>修改互相影响</strong>：一个对象通过指针修改数据，会影响另一个对象看到的数据。</li>
+</ol>
 
-    <hr />
+<h2>3. C++ 中何时会发生拷贝？</h2>
+<p>常见触发拷贝构造/拷贝赋值的场景：</p>
+<ul>
+  <li><code>MyClass b = a;</code>（拷贝构造）</li>
+  <li><code>MyClass b(a);</code>（拷贝构造）</li>
+  <li>函数参数 <strong>按值传递</strong>：<code>void f(MyClass x);</code></li>
+  <li>函数 <strong>按值返回</strong>（可能触发拷贝/移动，取决于优化与版本）</li>
+  <li><code>b = a;</code>（拷贝赋值）</li>
+</ul>
 
-    <h2>2. 为什么浅拷贝危险？</h2>
-    <p>以“堆内存指针”为例，浅拷贝常见问题：</p>
-    <ol>
-      <li><strong>重复释放（double free）</strong>：两个对象析构时都会 <code>delete</code> 同一块内存 → 未定义行为（可能崩溃）。</li>
-      <li><strong>修改互相影响</strong>：一个对象通过指针修改数据，会影响另一个对象看到的数据。</li>
-    </ol>
-
-    <hr />
-
-    <h2>3. C++ 中何时会发生拷贝？</h2>
-    <p>常见触发拷贝构造/拷贝赋值的场景：</p>
-    <ul>
-      <li><code>MyClass b = a;</code>（拷贝构造）</li>
-      <li><code>MyClass b(a);</code>（拷贝构造）</li>
-      <li>函数参数 <strong>按值传递</strong>：<code>void f(MyClass x);</code></li>
-      <li>函数 <strong>按值返回</strong>（可能触发拷贝/移动，取决于优化与版本）</li>
-      <li><code>b = a;</code>（拷贝赋值）</li>
-    </ul>
-
-    <hr />
-
-    <h2>4. 示例：为指针成员实现深拷贝（Rule of 3/5）</h2>
-    <p>下面这个类拥有堆内存 <code>data</code>，因此需要自定义：</p>
-    <ul>
-      <li>拷贝构造函数（deep copy）</li>
-      <li>拷贝赋值运算符（deep copy）</li>
-      <li>析构函数（释放资源）</li>
-    </ul>
-    <p><strong>提示：</strong>这就是经典的 <strong>Rule of 3</strong>。在现代 C++ 中通常还要补上移动构造/移动赋值（Rule of 5），这里先聚焦“深浅拷贝”主题。</p>
-
-    <pre><code class="language-cpp">#include &lt;iostream&gt;
+<h2>4. 示例：为指针成员实现深拷贝（Rule of 3/5）</h2>
+<p>下面这个类拥有堆内存 <code>data</code>，因此需要自定义：</p>
+<ul>
+  <li>拷贝构造函数（deep copy）</li>
+  <li>拷贝赋值运算符（deep copy）</li>
+  <li>析构函数（释放资源）</li>
+</ul>
+<p><strong>提示：</strong>这就是经典的 <strong>Rule of 3</strong>。在现代 C++ 中通常还要补上移动构造/移动赋值（Rule of 5），这里先聚焦“深浅拷贝”主题。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
 
 class MyClass {
 public:
@@ -96,29 +88,28 @@ int main() {
 }
 </code></pre>
 
-    <hr />
-
-    <h2>5. 实战建议（简明版）</h2>
-    <ol>
-      <li><strong>优先使用 RAII 容器</strong>，避免手写 <code>new/delete</code>：
-        <ul>
-          <li>动态数组用 <code>std::vector&lt;T&gt;</code></li>
-          <li>单个对象所有权用 <code>std::unique_ptr&lt;T&gt;</code></li>
-          <li>共享所有权用 <code>std::shared_ptr&lt;T&gt;</code>（谨慎使用）</li>
-        </ul>
-      </li>
-      <li>如果类 <strong>拥有资源</strong>（own resource），就要认真实现拷贝/移动语义：至少满足 Rule of 3；现代 C++ 通常满足 Rule of 5。</li>
-      <li>若不希望被拷贝，可以显式禁用：<code>MyClass(const MyClass&amp;) = delete;</code></li>
-    </ol>
-
-    <hr />
-
-    <h2>6. 你这页示例中的关键点（总结）</h2>
+<h2>5. 实战建议（简明版）</h2>
+<ol>
+  <li><strong>优先使用 RAII 容器</strong>，避免手写 <code>new/delete</code>：
     <ul>
-      <li><code>data</code> 是指针成员，默认拷贝会导致浅拷贝风险。</li>
-      <li>通过自定义拷贝构造函数 <code>MyClass(const MyClass&amp; other)</code> 并重新 <code>new</code>，可以实现深拷贝：两个对象各自拥有独立内存。</li>
-      <li>修改 <code>copy</code> 的 <code>*data</code> 不会影响 <code>original</code> 的 <code>*data</code>，这是深拷贝的直接体现。</li>
+      <li>动态数组用 <code>std::vector&lt;T&gt;</code></li>
+      <li>单个对象所有权用 <code>std::unique_ptr&lt;T&gt;</code></li>
+      <li>共享所有权用 <code>std::shared_ptr&lt;T&gt;</code>（谨慎使用）</li>
     </ul>
-  </article>
-</body>
-</html>
+  </li>
+  <li>如果类 <strong>拥有资源</strong>（own resource），就要认真实现拷贝/移动语义：至少满足 Rule of 3；现代 C++ 通常满足 Rule of 5。</li>
+  <li>若不希望被拷贝，可以显式禁用：<code>MyClass(const MyClass&amp;) = delete;</code></li>
+</ol>
+
+<h2>6. 你这页示例中的关键点（总结）</h2>
+<ul>
+  <li><code>data</code> 是指针成员，默认拷贝会导致浅拷贝风险。</li>
+  <li>通过自定义拷贝构造函数 <code>MyClass(const MyClass&amp; other)</code> 并重新 <code>new</code>，可以实现深拷贝：两个对象各自拥有独立内存。</li>
+  <li>修改 <code>copy</code> 的 <code>*data</code> 不会影响 <code>original</code> 的 <code>*data</code>，这是深拷贝的直接体现。</li>
+</ul>
+</div>
+<div class="article-tags"><span>C++</span><span>内存管理</span><span>工程实践</span></div>
+</main>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+
+
