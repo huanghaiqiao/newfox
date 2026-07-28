@@ -1,11 +1,12 @@
 ﻿<!doctype html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="MDC610 AI 算法迁移与精度优化实战 - 黄海桥的技术博客"/><title>MDC610 AI 算法迁移与精度优化实战 · 黄海桥</title><link rel="stylesheet" href="../styles.css"/>
-<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:40px}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body ul{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
+<style>.article-page{max-width:720px;margin:0 auto;padding:92px 32px 90px}.article-page h1{font-size:clamp(32px,4.5vw,48px)}.article-meta{display:flex;gap:16px;color:var(--muted);font:11px var(--mono);margin-bottom:22px}.article-toc{border:1px solid var(--line);border-radius:6px;padding:14px 16px;margin:0 0 34px;background:#fafbf9}.article-toc strong{display:block;font:11px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}.article-toc ol{margin:0;padding-left:18px}.article-toc a{color:inherit;text-decoration:none;border-bottom:1px dashed rgba(0,0,0,.2)}.article-toc a:hover{border-bottom-style:solid}.article-body{color:#3d484e;font-size:15px;line-height:1.9}.article-body h2{font-size:22px;margin:42px 0 16px}.article-body p{margin:0 0 16px}.article-body ul,.article-body ol{padding-left:20px;margin:0 0 16px}.article-body li{margin-bottom:6px}.article-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}.article-tags span{border:1px solid #bbc5bd;padding:3px 9px;border-radius:99px;color:#465158;font:11px var(--mono)}@media(max-width:720px){.article-page{padding:65px 20px 60px}}</style></head>
 <body><a class="skip-link" href="#content">跳到主要内容</a>
 <header class="site-header"><nav aria-label="主导航"><a href="../tools.html">工具</a><a href="../blog.html" aria-current="page">博客</a><a href="../resume.html">简历</a></nav></header>
 <main id="content" class="article-page">
 <p class="eyebrow"><a href="../blog.html" style="text-decoration:underline">← 返回博客列表</a></p>
 <h1>MDC610 AI 算法迁移与精度优化实战</h1>
 <div class="article-meta"><span>2026.03</span><span>AI</span></div>
+<nav class="article-toc" aria-label="本页目录"><strong>本页索引</strong><ol id="toc"></ol></nav>
 <div class="article-body">
 <h2>迁移目标</h2>
 <p>将基于 Linux 平台开发的 AI 算法迁移到 MDC610 嵌入式平台，并对关键算子进行性能优化，确保计算结果与原平台一致的同时，满足实时性要求。</p>
@@ -16,6 +17,7 @@
 <p>在 Linux 平台搭建多框架（PyTorch、Caffe、TensorFlow）算法测试体系，使用 Python + Paramiko 实现模型输入/输出采集与跨平台数据传输，将模型转换为 MDC610 架构并执行算法，自动对比不同平台结果。</p>
 </div>
 <div class="article-tags"><span>MDC610</span><span>OpenCV</span><span>算法迁移</span><span>精度优化</span></div></main>
-<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer></body></html>
+<footer class="site-footer section-shell"><span>© 2026 黄海桥</span><a href="../blog.html">返回博客列表</a></footer>
+<script>(function(){var toc=document.getElementById('toc');if(!toc)return;var hs=document.querySelectorAll('.article-body h2');hs.forEach(function(h,i){var id=h.id||('s'+(i+1));h.id=id;var li=document.createElement('li');var a=document.createElement('a');a.href='#'+id;a.textContent=h.textContent;li.appendChild(a);toc.appendChild(li);});})();</script></body></html>
 
 
